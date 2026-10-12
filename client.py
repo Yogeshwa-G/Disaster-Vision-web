@@ -10,11 +10,12 @@ import time
 
 from analysis_engine import BASE_DIR, DATA_DIR, discover_options, image_files
 
+import os
+
 HOST = '0.0.0.0'
-PORT = 8107
+PORT = int(os.environ.get('PORT', '8107'))
 ANALYSIS_HOST = '127.0.0.1'
 ANALYSIS_PORT = 5537
-
 
 _server_process = None
 
