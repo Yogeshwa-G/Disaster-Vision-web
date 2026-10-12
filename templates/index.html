@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="DisasterVision compares historical satellite imagery to help monitor environmental change.">
+<title>DisasterVision — Earth Observation & Change Intelligence</title>
+<link rel="stylesheet" href="/static/css/style.css?v=20261012-green2">
+</head>
+<body id="top">
+<header class="topbar">
+  <a class="brand" href="#" aria-label="DisasterVision home"><b class="brand-mark">DV<span>•</span></b><div><strong>DisasterVision</strong><span>EARTH OBSERVATION INTELLIGENCE</span></div></a>
+  <nav class="navlinks" aria-label="Main navigation"><a href="#monitor">Monitor</a><a href="#analysis">Analysis</a><a href="#about">About</a></nav>
+  <div class="state"><i></i> Local analysis system</div>
+</header>
+<main>
+<section class="hero reveal">
+  <div class="hero-copy">
+    <p class="eyebrow"><span></span> OBSERVE THE PLANET · UNDERSTAND CHANGE</p>
+    <h1>A changing planet<br>needs <em>clearer vision.</em></h1>
+    <p class="hero-description">Explore satellite-image history, compare environmental change, and model what the observed trend could mean for the years ahead.</p>
+    <div class="hero-actions"><a class="primary-link" href="#monitor">Start an analysis <span>↘</span></a><span class="hero-note">Image-led environmental monitoring</span></div>
+    <div class="hero-statline"><div><strong>01</strong><span>Choose a region</span></div><div><strong>02</strong><span>Compare observations</span></div><div><strong>03</strong><span>Review the trend</span></div></div>
+  </div>
+  <div class="hero-visual">
+    <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+    <div class="globe-label label-top"><i></i> EARTH SYSTEM / LIVE VIEW</div>
+    <canvas id="globe" width="420" height="420" aria-label="Interactive rotating Earth globe"></canvas>
+    <div class="globe-coordinates"><span>PLANETARY OBSERVATION</span><b>01 — 360°</b></div>
+    <div class="globe-caption">Drag to rotate <span>·</span> Scroll to explore</div>
+  </div>
+  <div class="hero-bottom"><span>ENVIRONMENTAL CHANGE, MADE VISIBLE</span><span>SCROLL TO EXPLORE ↓</span></div>
+</section>
+<section class="intro-band reveal">
+  <p class="eyebrow">A MORE INFORMED VIEW</p><p class="intro-statement">The planet leaves clues. <span>Satellite imagery helps us read them.</span></p>
+  <p class="intro-side">DisasterVision is a project for comparing dated images of selected locations and translating visible differences into a transparent, trend-based estimate.</p>
+</section>
+<section class="workspace-section" id="monitor">
+  <div class="section-heading reveal"><div><p class="eyebrow">01 / OBSERVATION WORKSPACE</p><h2>Start with the evidence.</h2></div><p>Choose a location and a future year. The latest available image becomes the reference point for comparison.</p></div>
+  <div class="workspace">
+    <article class="panel dataset-panel reveal">
+      <div class="panel-heading"><div><span class="step">01</span><div><h3>Satellite reference</h3><p>Latest available observation</p></div></div><span class="tag">SERVER DATA</span></div>
+      <div class="server-image-card" id="serverImageCard">
+        <div class="image-placeholder"><span>◎</span><strong>Choose a location to load its image</strong><p>The most recent dated satellite image is selected automatically.</p></div>
+        <div class="baseline-preview"><img id="baselinePreview" alt="Latest stored satellite image"></div>
+        <div class="baseline-line"><div><strong id="baselineName">No image selected</strong><span id="baselineYear">Choose a location to begin</span></div><span class="image-status">REFERENCE IMAGE</span></div>
+      </div>
+      <div id="uploadMessage" class="message" role="status"></div>
+      <div class="evidence-note"><span>ⓘ</span><p>Image differences are a visual-change proxy, not a direct measurement of glacier mass, hazard probability, or physical damage.</p></div>
+    </article>
+    <article class="panel settings reveal">
+      <div class="panel-heading"><div><span class="step">02</span><div><h3>Analysis settings</h3><p>Define your observation</p></div></div></div>
+      <label for="disasterInput">Environmental category</label>
+      <select id="disasterInput" aria-label="Environmental category"><option value="GLACIER" selected>Glacier change</option></select>
+      <label for="locationInput">Study location</label>
+      <select id="locationInput" aria-label="Study location"><option value="">Loading locations…</option></select>
+      <label for="yearInput">Forecast horizon</label>
+      <div class="year-field"><input id="yearInput" type="number" min="1900" max="2100" step="1" placeholder="e.g. 2035"><span>YEAR</span></div>
+      <p class="help">Enter a year later than the latest available observation.</p>
+      <button id="analyzeBtn" class="analyze" type="button"><span>Run change analysis</span><b>↗</b></button>
+      <div id="progress"><i></i></div>
+      <p id="status" class="status" aria-live="polite">Choose a location and enter a future year to begin.</p>
+      <div class="privacy-note"><span>✓</span> Uses the project's locally stored image dataset</div>
+    </article>
+  </div>
+</section>
+<section class="results-section" id="analysis">
+  <div class="section-heading reveal"><div><p class="eyebrow">02 / MODEL OUTPUT</p><h2>Turn observations into context.</h2></div><p>Every estimate is tied to the stored images and the model's assumptions. Treat the output as a planning signal—not a guaranteed event date.</p></div>
+  <article class="panel results reveal">
+    <div class="results-top"><div class="panel-heading"><div><span class="step">03</span><div><h3>Analysis results</h3><p>Historical change and trend projection</p></div></div></div><div class="results-head-right"><div class="prediction-year"><span>MODELED HIGH-RISK THRESHOLD YEAR</span><strong id="predictedYearTop">—</strong></div><span id="riskBadge" class="risk neutral">Awaiting analysis</span></div></div>
+    <div class="metrics">
+      <article><span>Forecast year</span><strong id="futureYear">—</strong><small>Selected horizon</small></article>
+      <article><span>Modeled change</span><strong id="predictedChange">—</strong><small>Relative to reference image</small></article>
+      <article><span>Trend category</span><strong id="riskMetric">—</strong><small>Based on model thresholds</small></article>
+    </div>
+    <div class="resultgrid">
+      <div><div class="subheading"><h4>Historical comparison</h4><span>CHANGE TO LATEST IMAGE</span></div><div class="tablewrap"><table><thead><tr><th>Observation year</th><th>Visual change</th></tr></thead><tbody id="historyBody"><tr><td colspan="2">Run an analysis to view the image history.</td></tr></tbody></table></div></div>
+      <div class="equation-card"><div class="subheading"><h4>Prediction model</h4><span>LINEAR TREND</span></div><pre id="equation">The model equation will appear here after analysis.</pre><p class="model-caveat">The projection assumes the historical rate continues. Real environmental systems are nonlinear and may change abruptly.</p></div>
+    </div>
+    <div class="disaster-window">
+      <div><span class="window-label">Estimated threshold window</span><strong id="windowYears">—</strong><p id="windowMessage">Run an analysis to see whether a threshold year can be estimated.</p></div>
+      <div class="window-meta"><div><small>Modeled annual change</small><b id="annualRate">—</b></div><div><small>High-risk threshold year</small><b id="highRiskYear">—</b></div></div>
+    </div>
+  </article>
+  <p class="disclaimer reveal"><strong>Important:</strong> DisasterVision is an educational monitoring prototype. Image colour, lighting, season, resolution, and alignment can affect the measured difference. Its threshold year is a mathematical extrapolation, not a validated disaster prediction or an official warning.</p>
+</section>
+<section class="about-section" id="about">
+  <div class="about-grid reveal">
+    <div><p class="eyebrow">ABOUT DISASTERVISION</p><h2>See the change.<br><em>Respect the evidence.</em></h2></div>
+    <div class="about-copy"><p>DisasterVision is a satellite-image monitoring project built to make environmental change easier to explore. By comparing historical observations of selected locations, it presents visible differences and a simple trend projection in one place.</p><p>The goal is clarity: show the data used, explain the calculation, and make the limitations visible alongside the result. The project is a decision-support experiment—not a replacement for scientific assessment or emergency services.</p><a class="contact-link" href="mailto:disastervision@gmail.com">Contact the project <span>↗</span></a><small>disastervision@gmail.com</small></div>
+  </div>
+  <div class="about-bottom"><span class="footer-brand"><b>DV<span>•</span></b> DisasterVision</span><span>Satellite imagery · Environmental change · Trend estimation</span><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a></div>
+</section>
+</main>
+<div id="resultModal" class="result-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription" hidden>
+  <div class="result-modal-backdrop" data-close-modal="true"></div>
+  <section class="result-modal-card" id="resultModalCard">
+    <button class="result-modal-close" id="closeResultModal" type="button" aria-label="Close result">×</button>
+    <div class="modal-kicker"><span class="modal-status-dot"></span> DISASTERVISION · ANALYSIS COMPLETE</div>
+    <p class="modal-level-label" id="modalLevelLabel">PREDICTION LEVEL</p>
+    <h2 id="modalTitle">Change analysis result</h2>
+    <p class="modal-summary" id="modalDescription">Your selected observation has been analyzed.</p>
+    <div class="modal-result-grid">
+      <div><span>Prediction level</span><strong id="modalRisk">—</strong></div>
+      <div><span>Your selected year</span><strong id="modalYear">—</strong></div>
+      <div><span>Study location</span><strong id="modalLocation">—</strong></div>
+    </div>
+    <p class="modal-note" id="modalNote">This is a model-based estimate from image differences, not an official disaster warning.</p>
+    <a class="modal-more-link" id="viewMoreResults" href="#analysis">View more results <span>↗</span></a>
+  </section>
+</div>
+<script src="/static/js/app.js?v=20261012-popupfix1"></script>
+</body>
+</html>
